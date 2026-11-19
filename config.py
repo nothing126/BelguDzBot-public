@@ -8,4 +8,4 @@ ANALYTICS_DB_PATH = os.path.join(BASE_DIR, "analytics.db")  # ← АБСОЛЮТ
 TIMEZONE = "Europe/Chisinau"
 REMINDER_HOUR = 8
 
-ADMIN_IDS = [1200103539, 878022578, 1093664059]# <- tg id админов
+ADMIN_IDS = [int(x) for x in os.getenv("ADMIN_IDS", "").split(",") if x.strip()]  # <- tg id админов через запятую, например: export ADMIN_IDS="123456789,987654321"
