@@ -1,0 +1,94 @@
+# =========================
+# BelguDzBot .gitignore
+# =========================
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+
+# --- Virtual environments ---
+venv/
+env/
+.venv/
+ENV/
+env.bak/
+env_old/
+
+# --- Databases ---
+*.db
+*.sqlite3
+*.sqlite
+*.db-journal
+
+# --- Logs ---
+*.log
+logs/
+*.tmp
+tmp/
+
+# --- Configs & Secrets ---
+.env
+.env.local
+.env.*
+config.env
+config.ini
+settings.json
+
+# --- Analytics & Cache ---
+analytics/
+*.cache
+__cache__/
+
+# --- Compiled or temporary files ---
+*.bak
+*.swp
+*.swo
+*.orig
+*.save
+*.~*
+
+# --- System files ---
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# --- Editors & IDEs ---
+.vscode/
+.idea/
+.pytest_cache/
+.mypy_cache/
+.pyre/
+.pytype/
+.cache/
+*.iml
+
+# --- Distributions / Packaging ---
+build/
+dist/
+*.egg-info/
+*.spec
+*.manifest
+*.lock
+pip-wheel-metadata/
+*.whl
+
+# --- Flask / Dashboard ---
+instance/
+*.db-shm
+*.db-wal
+__flask_cache__/
+dashboard/__pycache__/
+dashboard/*.log
+dashboard/.env
+
+# --- Other ---
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.bak
+*.tmp
