@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Диаграммы — Analytics{% endblock %}
+{% block content %}
+  <div class="py-3">
+    <h1 class="h4 m-0 mb-3">Диаграммы</h1>
+
+    <div class="row g-3">
+      <div class="col-md-8">
+        <div class="card p-3">
+          <h6 class="mb-3">События по дням</h6>
+          <canvas id="eventsDaily" height="120"></canvas>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-3">
+          <h6 class="mb-3">События по типам</h6>
+          <canvas id="eventsByType" height="120"></canvas>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="card p-3">
+          <h6 class="mb-3">Топ команд</h6>
+          <canvas id="topCommands" height="100"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block body_extra %}
+<script>
+(async () => {
+  const daily = await (await fetch('/api/charts/events/daily?days=30')).json();
+  const ctx1 = document.getElementById('eventsDaily');
+  new Chart(ctx1, {
+    type: 'line',
+    data: { labels: daily.map(d=>d.date), datasets: [{ label: 'События', data: daily.map(d=>d.count), tension:.3, fill:true }] },
+    options: { plugins:{legend:{display:false}}, scales:{y:{beginAtZero:true}} }
+  });
+
+  const types = await (await fetch('/api/charts/events/by_type')).json();
+  const ctx2 = document.getElementById('eventsByType');
+  new Chart(ctx2, {
+    type: 'doughnut',
+    data: { labels: types.map(x=>x.type), datasets: [{ data: types.map(x=>x.count) }] },
+    options: { plugins:{legend:{position:'bottom'}} }
+  });
+
+  const cmds = await (await fetch('/api/charts/top/commands?limit=10')).json();
+  const ctx3 = document.getElementById('topCommands');
+  new Chart(ctx3, {
+    type: 'bar',
+    data: { labels: cmds.map(x=>x.command), datasets: [{ data: cmds.map(x=>x.count) }] },
+    options: { plugins:{legend:{display:false}}, scales:{y:{beginAtZero:true}} }
+  });
+})();
+</script>
+{% endblock %}

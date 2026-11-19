@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}Обзор — Analytics{% endblock %}
+
+{% block content %}
+<div class="py-3">
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <h1 class="h3 m-0">📊 Обзор системы</h1>
+    <span class="text-muted small">Обновлено: {{ now.strftime('%Y-%m-%d %H:%M') }}</span>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-md-4">
+      <div class="card kpi-card shadow-sm border-0">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <div class="text-muted small mb-1">Пользователей</div>
+              <h2 class="fw-semibold">{{ users_count }}</h2>
+            </div>
+            <span class="badge bg-primary-subtle text-primary rounded-pill">users</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card kpi-card shadow-sm border-0">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <div class="text-muted small mb-1">Событий</div>
+              <h2 class="fw-semibold">{{ events_count }}</h2>
+            </div>
+            <span class="badge bg-success-subtle text-success rounded-pill">events</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card kpi-card shadow-sm border-0">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <div class="text-muted small mb-1">Последнее событие</div>
+              <h6 class="fw-normal mb-0">{{ last_event or "—" }}</h6>
+            </div>
+            <span class="badge bg-secondary-subtle text-secondary rounded-pill">last</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-4 border-0 shadow-sm">
+    <div class="card-body">
+      <h5 class="mb-3">🧭 Навигация</h5>
+      <p class="text-muted mb-3">
+        Здесь вы можете отслеживать активность пользователей, события и работу Telegram-бота.
+        Используйте разделы ниже для подробной аналитики.
+      </p>
+      <div class="d-flex flex-wrap gap-2">
+        <a class="btn btn-outline-primary" href="{{ url_for('users') }}">Пользователи</a>
+        <a class="btn btn-outline-success" href="{{ url_for('events') }}">События</a>
+        <a class="btn btn-outline-info" href="{{ url_for('charts') }}">Диаграммы</a>
+        <a class="btn btn-outline-dark" href="{{ url_for('admins') }}">Администраторы</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-4 text-muted small">
+    <hr>
+    <p>📂 Данные берутся из <code>analytics.db</code> — основной базы аналитики.</p>
+  </div>
+</div>
+{% endblock %}

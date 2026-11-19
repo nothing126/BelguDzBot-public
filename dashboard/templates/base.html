@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ru" data-bs-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Analytics Dashboard{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <style>
+      body { padding-top: 64px; background: #f6f7fb; }
+      .navbar-brand { font-weight: 700; letter-spacing:.2px; }
+      .app-container { max-width: 1200px; }
+      .card { border-radius: 14px; border: 1px solid #eef0f5; }
+      .kpi-card { min-height: 110px; }
+      .sticky-toolbar { position: sticky; top: 64px; z-index: 1020; }
+      .muted { color:#6b7280; }
+      .table thead th { background:#fafbff; font-size:.9rem; }
+      .table td, .table th { vertical-align: middle; }
+      footer { color:#98a2b3; }
+      code { background: #f3f4f6; padding: 2px 6px; border-radius: 6px; }
+      .btn-ghost { border:1px solid #e5e7eb; background:#fff; }
+      .badge-soft { background:#eef2ff; color:#4f46e5; }
+    </style>
+    {% block head_extra %}{% endblock %}
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-white border-bottom fixed-top">
+      <div class="container app-container">
+        <a class="navbar-brand" href="{{ url_for('home') }}">Analytics</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="nav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link {% if request.endpoint=='users' %}active{% endif %}" href="{{ url_for('users') }}">Пользователи</a></li>
+            <li class="nav-item"><a class="nav-link {% if request.endpoint=='events' %}active{% endif %}" href="{{ url_for('events') }}">События</a></li>
+            <li class="nav-item"><a class="nav-link {% if request.endpoint=='charts' %}active{% endif %}" href="{{ url_for('charts') }}">Диаграммы</a></li>
+            <li class="nav-item"><a class="nav-link {% if request.endpoint=='admins' %}active{% endif %}" href="{{ url_for('admins') }}">Администраторы</a></li>
+          </ul>
+
+           <span class="navbar-text small text-muted">{{ now.strftime('%Y-%m-%d %H:%M') }} ({{ now.tzinfo }})</span>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container app-container">
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="container app-container py-4 mt-5 small">
+      <div class="d-flex justify-content-between">
+        <span>© BelguDz Analytics</span>
+        <span class="muted">Build: Flask + Bootstrap 5</span>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    {% block body_extra %}{% endblock %}
+  </body>
+</html>
